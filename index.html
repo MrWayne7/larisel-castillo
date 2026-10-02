@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Larisel Castillo — Mapa de proyectos</title>
+<title>LARISEL OS — Mapa de proyectos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -251,7 +251,7 @@
   <div class="topbar">
     <div class="brand">
       <span class="seal"></span>
-      <input id="boardTitle" value="Larisel Castillo" readonly maxlength="60" />
+      <input id="boardTitle" value="LARISEL OS" readonly maxlength="60" />
     </div>
     <div class="spacer"></div>
     <label class="search">
@@ -368,7 +368,7 @@
   <div class="onboard" id="onboard">
     <div class="onboard-card">
       <h3>Tu mapa de proyectos</h3>
-      <p>Cada punto es un proyecto y su color es la categoría. Todo lo tuyo en un solo lugar, para que nada se pierda.</p>
+      <p>Cada punto es un área o proyecto, y su color es el mundo al que pertenece: LARISEL, SLMC o VISUALSRENEW. Todo tu universo en un solo lugar.</p>
       <ul>
         <li>Toca un proyecto para ver y leer su detalle.</li>
         <li>Arrástralo para moverlo; acerca con rueda o pellizco.</li>
@@ -380,13 +380,13 @@
 
 <script>
 /* ============================================================
-   Larisel Castillo — mapa de proyectos estilo grafo
+   LARISEL OS — mapa de proyectos estilo grafo
    Datos en localStorage + exportar/importar. Sin servidor.
    ============================================================ */
 (function(){
   "use strict";
 
-  var STORAGE_KEY = "tablero-larisel-v1";
+  var STORAGE_KEY = "tablero-larisel-v2";
 
   var STATUSES = {
     idea:    { label:"Idea",    color:"#8b8f99" },
@@ -399,13 +399,9 @@
   /* ---------- datos de ejemplo (todo editable) ---------- */
   function seed(){
     var cats = [
-      { id:"cat-libro",     name:"Libro & Escritura",      color:"#d9a441" },
-      { id:"cat-charlas",   name:"Charlas & Talleres",     color:"#c58fb0" },
-      { id:"cat-contenido", name:"Contenido audiovisual",  color:"#6aa6cf" },
-      { id:"cat-matcha",    name:"Simple Life Matcha",     color:"#8fb46a" },
-      { id:"cat-comunidad", name:"Comunidad",              color:"#e0896a" },
-      { id:"cat-alianzas",  name:"Alianzas",               color:"#b49bd8" },
-      { id:"cat-ideas",     name:"Ideas",                  color:"#9aa0ad" }
+      { id:"cat-larisel", name:"LARISEL \u00b7 Personal Brand",  color:"#cf8fa6" },
+      { id:"cat-slmc",    name:"SLMC \u00b7 Simple Life Matcha", color:"#86ab5f" },
+      { id:"cat-visuals", name:"VISUALSRENEW \u00b7 Agency",     color:"#6aa6cf" }
     ];
     var n = [];
     function mk(id,title,cat,st,extra){
@@ -414,38 +410,30 @@
       if(extra) for(var k in extra) base[k]=extra[k];
       n.push(base); return base;
     }
-    mk("hub","Larisel Castillo",null,"activo",{ isHub:true, notes:"Tu centro. Conecta aquí tus proyectos grandes: el libro, las charlas, el contenido y Simple Life Matcha." });
-    mk("libro1","El Regalo de la Vida","cat-libro","activo",{ progress:70, priority:"alta", tags:["libro"], notes:"Libro publicado. Pendiente: difusión y nuevas reseñas." });
-    mk("libro2","Próximo libro","cat-libro","idea",{ notes:"Idea / borrador del siguiente título." });
-    mk("libro3","Firmas & presentaciones","cat-libro","idea");
-    mk("ch1","Charla — Vuelve a ti","cat-charlas","activo",{ progress:30, priority:"alta" });
-    mk("ch2","Taller de escritura","cat-charlas","idea");
-    mk("ch3","Conferencia motivacional","cat-charlas","pausado");
-    mk("co1","Calendario de contenido","cat-contenido","activo",{ progress:50 });
-    mk("co2","Serie de reels","cat-contenido","activo",{ progress:40 });
-    mk("co3","Sesión de fotos","cat-contenido","idea");
-    mk("co4","Video / mini documental","cat-contenido","idea",{ priority:"alta" });
-    mk("ma1","Simple Life Matcha","cat-matcha","activo",{ progress:60, tags:["marca"], notes:"Tu marca de matcha." });
-    mk("ma2","Recetas de matcha","cat-matcha","activo",{ progress:35 });
-    mk("ma3","Lanzamiento de producto","cat-matcha","idea");
-    mk("ma4","Tienda & ventas","cat-matcha","activo",{ progress:45 });
-    mk("cm1","Círculo (comunidad)","cat-comunidad","activo",{ progress:55 });
-    mk("cm2","Newsletter","cat-comunidad","idea");
-    mk("al1","Colaboraciones","cat-alianzas","activo",{ progress:25 });
-    mk("al2","Marcas & sponsors","cat-alianzas","idea");
-    mk("id1","Podcast","cat-ideas","idea");
-    mk("id2","Retiro / evento en vivo","cat-ideas","idea");
+    mk("hub","LARISEL OS",null,"activo",{ isHub:true, notes:"El centro de tu universo. De aqu\u00ed salen tus tres mundos: LARISEL, SLMC y VISUALSRENEW." });
+
+    mk("larisel","LARISEL","cat-larisel","activo",{ tags:["Personal Brand"], notes:"Tu marca personal." });
+    mk("content","Content","cat-larisel","activo",{ progress:40, notes:"Cuelga aqu\u00ed tus proyectos de contenido: reels, fotos, video." });
+    mk("book","Book","cat-larisel","activo",{ progress:70, tags:["El Regalo de la Vida"], notes:"Libro y escritura." });
+    mk("community","Community","cat-larisel","activo",{ progress:50, notes:"Tu comunidad / C\u00edrculo." });
+
+    mk("slmc","SLMC","cat-slmc","activo",{ tags:["Brand"], notes:"Simple Life Matcha \u2014 tu marca de matcha." });
+    mk("events","Events","cat-slmc","idea",{ notes:"Eventos y activaciones de la marca." });
+    mk("products","Products","cat-slmc","activo",{ progress:45, notes:"Productos, lanzamientos y recetas." });
+
+    mk("visuals","VISUALSRENEW","cat-visuals","activo",{ tags:["Agency"], notes:"La agencia." });
+    mk("collabs","Collabs","cat-visuals","activo",{ progress:25, notes:"Colaboraciones." });
+    mk("clients","Clients","cat-visuals","activo",{ progress:30, notes:"Clientes de la agencia." });
+
     var e = [
-      ["hub","libro1"],["hub","ch1"],["hub","co1"],["hub","ma1"],["hub","cm1"],["hub","al1"],["hub","id1"],
-      ["libro1","libro2"],["libro1","libro3"],["libro1","ch1"],
-      ["ch1","ch2"],["ch1","co4"],["ch3","ch1"],
-      ["co1","co2"],["co1","co3"],["co2","ma2"],
-      ["ma1","ma2"],["ma1","ma3"],["ma1","ma4"],["ma1","al2"],
-      ["cm1","cm2"],["cm1","libro1"],["al1","co2"]
+      ["hub","larisel"],["hub","slmc"],["hub","visuals"],
+      ["larisel","content"],["larisel","book"],["larisel","community"],
+      ["slmc","events"],["slmc","products"],
+      ["visuals","collabs"],["visuals","clients"]
     ];
     var links = e.map(function(p){ return { source:p[0], target:p[1] }; });
     return {
-      meta:{ title:"Larisel Castillo", pin:"1234", version:1 },
+      meta:{ title:"LARISEL OS", pin:"1234", version:1 },
       categories:cats, nodes:n, links:links
     };
   }
@@ -842,7 +830,7 @@
     selectedId=null; closePanel(); firstRender=true;
     gEdges.selectAll("*").remove(); gNodes.selectAll("*").remove();
     linkSel=null; nodeSel=null;
-    bt.value=state.meta.title||"Larisel Castillo";
+    bt.value=state.meta.title||"LARISEL OS";
     buildFilters(); render(); setTimeout(fit,400);
   }
 
@@ -888,7 +876,7 @@
   /* ============================================================
      ARRANQUE
      ============================================================ */
-  bt.value=state.meta.title||"Larisel Castillo";
+  bt.value=state.meta.title||"LARISEL OS";
   buildFilters();
   render();
   setTimeout(fit,500);
